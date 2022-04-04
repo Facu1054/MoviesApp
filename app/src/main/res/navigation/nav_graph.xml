@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/listHeroesFragment">
+
+    <!--<fragment
+        android:id="@+id/infoHeroFragment"
+        android:name="com.superheroapp.ui.view.InfoHeroFragment"
+        android:label="fragment_info_hero"
+        tools:layout="@layout/fragment_info_hero" >
+        <action
+            android:id="@+id/action_infoHeroFragment3_to_listHeroesFragment3"
+            app:destination="@id/listHeroesFragment"
+            app:popUpTo="@id/listHeroesFragment">
+
+        </action>
+        <argument
+            android:name="hero"
+            app:argType="com.superheroapp.data.model.SuperHero" />
+
+    </fragment>-->
+    <fragment
+        android:id="@+id/listHeroesFragment"
+        android:name="mitiempo.android.curso.linkedin.moviesapp.ui.view.MoviesListFragment"
+        android:label="fragment_list_heroes"
+        tools:layout="@layout/fragment_list_movies" >
+        <!--<action
+            android:id="@+id/action_listHeroesFragment3_to_infoHeroFragment3"
+            app:destination="@id/infoHeroFragment" />-->
+    </fragment>
+</navigation>
