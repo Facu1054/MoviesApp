@@ -7,6 +7,8 @@ class MoviesProvider {
     companion object {
         var results: List<Item> = emptyList()
 
+        //var resultsImageMovies: String = ""
+
 
 
     }

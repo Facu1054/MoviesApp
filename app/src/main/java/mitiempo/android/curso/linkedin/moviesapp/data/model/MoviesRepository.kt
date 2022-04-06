@@ -9,12 +9,27 @@ class MoviesRepository {
 
 
     suspend fun getMarvel():MoviesJson{
-        val response = api.getSuperHeroes()
+        val response = api.getMovies()
 
         MoviesProvider.results = response.items
 
         return response
     }
+    suspend fun getMoviesFilter(filter: String):MoviesJson{
+        val response = api.getMoviesFilter(filter)
+
+        MoviesProvider.results = response.items
+
+        return response
+    }
+
+    /*suspend fun getImage(url: String):String{
+        val response = api.getMovieImage(url)
+
+        MoviesProvider.resultsImageMovies = response
+
+        return response
+    }*/
 
 
 

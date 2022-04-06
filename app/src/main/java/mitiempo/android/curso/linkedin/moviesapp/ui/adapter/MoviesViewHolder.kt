@@ -1,5 +1,6 @@
 package com.superheroapp.ui.view.adapter
 
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
@@ -10,6 +11,7 @@ import mitiempo.android.curso.linkedin.moviesapp.databinding.ItemSuperheroBindin
 class MoviesViewHolder(view: View): RecyclerView.ViewHolder(view) {
     val binding = ItemSuperheroBinding.bind(view)
 
+
     //, onclickListener:(Result) -> Unit
     fun render(movieModel: Item){
         with(binding) {
@@ -17,8 +19,9 @@ class MoviesViewHolder(view: View): RecyclerView.ViewHolder(view) {
             tvNameSuperHero.text = movieModel.original_title
             tvDescription.text = movieModel.overview
             Picasso.get()
-                .load(movieModel.backdrop_path)
+                .load("https://image.tmdb.org/t/p/w500/"+ movieModel.poster_path)
                 .into(imgSuperHero)
+            Log.i("test",movieModel.poster_path)
             itemView.setOnClickListener {
                 //onclickListener(superHeroModel)
 
@@ -26,6 +29,7 @@ class MoviesViewHolder(view: View): RecyclerView.ViewHolder(view) {
         }
 
     }
+
 
 
 }

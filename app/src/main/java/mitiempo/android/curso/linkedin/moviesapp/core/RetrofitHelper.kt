@@ -11,5 +11,12 @@ object RetrofitHelper {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
+    /*fun getRetrofitImage(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("https://image.tmdb.org/t/p/w500")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }*/
     //
 }

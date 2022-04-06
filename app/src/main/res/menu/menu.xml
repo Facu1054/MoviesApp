@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <item
         android:id="@+id/action_search"
         android:title="Search"
         android:icon="@android:drawable/ic_menu_search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
-        app:showAsAction="ifRoom|collapseActionView"/>
+        app:showAsAction="always"
+        />
+    <item
+        android:id="@+id/filter"
+        android:title="Filtro"
+        android:icon="@drawable/ic_popular"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/rate"
+        android:title="Top rated"
+        android:icon="@drawable/ic_star_rate_24"
+        app:showAsAction="ifRoom"
+        />
 
 
 </menu>

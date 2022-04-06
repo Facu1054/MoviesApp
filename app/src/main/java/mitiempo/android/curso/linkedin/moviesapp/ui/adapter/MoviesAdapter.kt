@@ -8,7 +8,7 @@ import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Item
 
 //Convierte un listado en un RecyclerView
 //, private val onClickListener:(Result) -> Unit
-class MoviesAdapter(private var moviesList:List<Item>) : RecyclerView.Adapter<MoviesViewHolder>(){
+class MoviesAdapter(private var moviesList:List<Item>,private var filter: String) : RecyclerView.Adapter<MoviesViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return MoviesViewHolder(layoutInflater.inflate(R.layout.item_superhero, parent, false))
