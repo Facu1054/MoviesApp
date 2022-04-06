@@ -1,14 +1,16 @@
 package com.superheroapp.ui.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import mitiempo.android.curso.linkedin.moviesapp.R
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Item
+import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Result
 
 //Convierte un listado en un RecyclerView
 //, private val onClickListener:(Result) -> Unit
-class MoviesAdapter(private var moviesList:List<Item>) : RecyclerView.Adapter<MoviesViewHolder>(){
+class MoviesAdapter(private var moviesList:List<Any>,private var filter: String) : RecyclerView.Adapter<MoviesViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         return MoviesViewHolder(layoutInflater.inflate(R.layout.item_superhero, parent, false))
@@ -16,7 +18,14 @@ class MoviesAdapter(private var moviesList:List<Item>) : RecyclerView.Adapter<Mo
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         val item = moviesList[position]
-        holder.render(item)
+        if(item is Result) {
+            holder.render2(item as Result)
+            Log.i("result2",item.toString())
+
+        }else{
+            holder.render(item as Item)
+
+        }
         //onClickListener
     }
 
