@@ -16,11 +16,11 @@ class MoviesViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun render(movieModel: Item){
         with(binding) {
 
-            tvNameSuperHero.text = movieModel.original_title
+            tvNameMovie.text = movieModel.original_title
             tvDescription.text = movieModel.overview
             Picasso.get()
                 .load("https://image.tmdb.org/t/p/w500/"+ movieModel.poster_path)
-                .into(imgSuperHero)
+                .into(imgMovie)
             Log.i("test",movieModel.poster_path)
             itemView.setOnClickListener {
                 //onclickListener(superHeroModel)
@@ -33,12 +33,12 @@ class MoviesViewHolder(view: View): RecyclerView.ViewHolder(view) {
     fun render2(movieModel: Result){
         with(binding) {
 
-            tvNameSuperHero.text = movieModel.original_title
+            tvNameMovie.text = movieModel.original_title
             tvDescription.text = movieModel.overview
             if(movieModel.poster_path != null) {
                 Picasso.get()
                     .load("https://image.tmdb.org/t/p/w500/" + movieModel.poster_path)
-                    .into(imgSuperHero)
+                    .into(imgMovie)
                 Log.i("test",movieModel.poster_path)
             }
             itemView.setOnClickListener {

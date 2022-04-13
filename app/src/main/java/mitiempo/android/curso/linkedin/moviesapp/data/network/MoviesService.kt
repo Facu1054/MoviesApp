@@ -6,6 +6,8 @@ import kotlinx.coroutines.withContext
 import mitiempo.android.curso.linkedin.moviesapp.core.RetrofitHelper
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Filter
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.MoviesJson
+import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.MoviesPopular
+import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.MoviesTopRate
 
 class MoviesService {
     private val retrofit = RetrofitHelper.getRetrofit()
@@ -27,13 +29,22 @@ class MoviesService {
             response!!.body() ?: Filter()
         }
     }
-
-    /*private val retrofitImage = RetrofitHelper.getRetrofitImage()
-    suspend fun getMovieImage(url: String): String {
+    suspend fun getMoviesTopRate(): MoviesTopRate {
         return withContext(Dispatchers.IO) {
-            val response = retrofitImage.create(MoviesApiClient::class.java).getImageMovie(url)
-            response ?: ""
+            val response = retrofit.create(MoviesApiClient::class.java).getTopRatesMovies()
+            Log.i("Rwe", response.body().toString())
+            response.body() ?: MoviesTopRate()
         }
-    }*/
+    }
+
+    suspend fun getMoviesPopular(): MoviesPopular {
+        return withContext(Dispatchers.IO) {
+            val response = retrofit.create(MoviesApiClient::class.java).getPopularMovies()
+            Log.i("Rwe", response.body().toString())
+            response.body() ?: MoviesPopular()
+        }
+    }
+
+
 
 }

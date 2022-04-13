@@ -11,7 +11,7 @@ import mitiempo.android.curso.linkedin.moviesapp.domain.GetMoviesUseCase
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetPopularMoviesUseCase
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetTopRatesMoviesUseCase
 
-class listMoviesViewModel: ViewModel() {
+class listTvViewModel: ViewModel() {
     val movies = MutableLiveData<MoviesJson>()
     val topRatesMovies = MutableLiveData<MoviesTopRate>()
     val popularMovies = MutableLiveData<MoviesPopular>()
