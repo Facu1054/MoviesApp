@@ -3,7 +3,7 @@
              xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/listHeroesFragment">
+    app:startDestination="@id/listMovies">
 
     <!--<fragment
         android:id="@+id/infoHeroFragment"
@@ -22,12 +22,27 @@
 
     </fragment>-->
     <fragment
-        android:id="@+id/listHeroesFragment"
+        android:id="@+id/listMovies"
         android:name="mitiempo.android.curso.linkedin.moviesapp.ui.view.MoviesListFragment"
-        android:label="fragment_list_heroes"
+        android:label="fragment_list_movies"
         tools:layout="@layout/fragment_list_movies" >
         <!--<action
             android:id="@+id/action_listHeroesFragment3_to_infoHeroFragment3"
             app:destination="@id/infoHeroFragment" />-->
+        <action
+            android:id="@+id/action_listMovies_to_listtv"
+            app:destination="@id/listtv" />
+    </fragment>
+    <fragment
+        android:id="@+id/listtv"
+        android:name="mitiempo.android.curso.linkedin.moviesapp.ui.view.tv.TvListFragment"
+        android:label="fragment_list_tv"
+        tools:layout="@layout/fragment_list_tv" >
+        <!--<action
+            android:id="@+id/action_listHeroesFragment3_to_infoHeroFragment3"
+            app:destination="@id/infoHeroFragment" />-->
+        <action
+            android:id="@+id/action_listtv_to_listMovies"
+            app:destination="@id/listMovies" />
     </fragment>
 </navigation>

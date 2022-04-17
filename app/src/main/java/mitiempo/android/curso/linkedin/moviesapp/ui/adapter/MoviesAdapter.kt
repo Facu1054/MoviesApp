@@ -5,8 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import mitiempo.android.curso.linkedin.moviesapp.R
-import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Item
-import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Result
+import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
 
 //Convierte un listado en un RecyclerView
 //, private val onClickListener:(Result) -> Unit
@@ -22,7 +21,17 @@ class MoviesAdapter(private var moviesList:List<Any>,private var filter: String)
             holder.render2(item as Result)
             Log.i("result2",item.toString())
 
-        }else{
+        }else if (item is ResultTvPopular){
+            holder.renderTvPopular(item as ResultTvPopular)
+            Log.i("result2",item.toString())
+        }else if (item is ResultTvTopRates){
+            holder.renderTvTopRates(item as ResultTvTopRates)
+            Log.i("result2",item.toString())
+        }else if (item is ResultTv){
+            holder.renderFilterTv(item as ResultTv)
+            Log.i("result2",item.toString())
+        }
+        else{
             holder.render(item as Item)
 
         }

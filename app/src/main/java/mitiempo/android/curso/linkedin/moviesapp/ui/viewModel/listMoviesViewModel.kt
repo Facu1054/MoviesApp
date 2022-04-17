@@ -4,14 +4,22 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetMoviesFilterUseCases
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetMoviesUseCase
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetPopularMoviesUseCase
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetTopRatesMoviesUseCase
+import javax.inject.Inject
 
-class listMoviesViewModel: ViewModel() {
+@HiltViewModel
+class listMoviesViewModel @Inject constructor(
+    private val getMoviesUseCase : GetMoviesUseCase,
+    private val getTopRatesUseCase : GetTopRatesMoviesUseCase,
+    private val getPopularUseCase : GetPopularMoviesUseCase,
+    private val getFilterMoviesUseCaseFilter : GetMoviesFilterUseCases
+): ViewModel() {
     val movies = MutableLiveData<MoviesJson>()
     val topRatesMovies = MutableLiveData<MoviesTopRate>()
     val popularMovies = MutableLiveData<MoviesPopular>()
@@ -24,15 +32,15 @@ class listMoviesViewModel: ViewModel() {
     var moviesListFilter= MutableLiveData<Filter>()
 
     var imageStr: String = ""
-
-
-    private var recyclerListData: MutableLiveData<List<MoviesJson>>
-    var getMoviesUseCase = GetMoviesUseCase()
+    /*var getMoviesUseCase = GetMoviesUseCase()
     var getTopRatesUseCase = GetTopRatesMoviesUseCase()
     var getPopularUseCase = GetPopularMoviesUseCase()
 
 
-    var getFilterMoviesUseCaseFilter = GetMoviesFilterUseCases()
+    var getFilterMoviesUseCaseFilter = GetMoviesFilterUseCases()*/
+
+    private var recyclerListData: MutableLiveData<List<MoviesJson>>
+
 
     init {
         recyclerListData =  MutableLiveData()

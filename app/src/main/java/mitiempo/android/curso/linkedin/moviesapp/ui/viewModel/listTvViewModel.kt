@@ -4,35 +4,37 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
-import mitiempo.android.curso.linkedin.moviesapp.domain.GetMoviesFilterUseCases
-import mitiempo.android.curso.linkedin.moviesapp.domain.GetMoviesUseCase
-import mitiempo.android.curso.linkedin.moviesapp.domain.GetPopularMoviesUseCase
-import mitiempo.android.curso.linkedin.moviesapp.domain.GetTopRatesMoviesUseCase
+import mitiempo.android.curso.linkedin.moviesapp.domain.*
+import javax.inject.Inject
 
-class listTvViewModel: ViewModel() {
-    val movies = MutableLiveData<MoviesJson>()
-    val topRatesMovies = MutableLiveData<MoviesTopRate>()
-    val popularMovies = MutableLiveData<MoviesPopular>()
+@HiltViewModel
+class listTvViewModel @Inject constructor(
+    private val getTvUseCaseFilter: GetTvFilterUseCases,
+    private val getTvTopRatesUseCase : GetTopRatesTvUseCase,
+    private val getTvPopularUseCase : GetPopularTvUseCase
+): ViewModel() {
+    val popularTv = MutableLiveData<TvPoupular>()
+    val topRatesTv = MutableLiveData<TvTopRates>()
+    //val popularMovies = MutableLiveData<TvPoupular>()
 
 
-    var moviesList:MutableList<Item> = mutableListOf()
-    var moviesListFilt:List<Result> = mutableListOf()
+    var tvList:MutableList<Item> = mutableListOf()
+    var tvListFilt:List<ResultTv> = mutableListOf()
     var tempSearch = mutableSetOf<String>()
 
-    var moviesListFilter= MutableLiveData<Filter>()
+    var tvListFilter= MutableLiveData<TvFilter>()
 
     var imageStr: String = ""
 
 
     private var recyclerListData: MutableLiveData<List<MoviesJson>>
-    var getMoviesUseCase = GetMoviesUseCase()
-    var getTopRatesUseCase = GetTopRatesMoviesUseCase()
-    var getPopularUseCase = GetPopularMoviesUseCase()
 
 
-    var getFilterMoviesUseCaseFilter = GetMoviesFilterUseCases()
+
+
 
     init {
         recyclerListData =  MutableLiveData()
@@ -40,13 +42,13 @@ class listTvViewModel: ViewModel() {
 
     fun onCreate() {
         viewModelScope.launch {
-            val result = getMoviesUseCase()
+            val result = getTvPopularUseCase()
             Log.i("Test222","tem")
 
             if (result != null) {
-                if(result.item_count != 0){
+                if(result.total_results != 0){
                     //Se le asigna el valor obtenido de retrofit
-                    movies.postValue(result!!)
+                    popularTv.postValue(result!!)
 
                 }
             }
@@ -63,13 +65,13 @@ class listTvViewModel: ViewModel() {
         Log.i("Test2w",query)
         viewModelScope.launch {
 
-            val result = getFilterMoviesUseCaseFilter(query)
+            val result = getTvUseCaseFilter(query)
 
             if (result != null) {
                 if(result.total_results != 0){
 
                     //Se le asigna el valor obtenido de retrofit
-                    moviesListFilter.postValue(result!!)
+                    tvListFilter.postValue(result!!)
                     Log.i("Test2w",result.total_results.toString())
 
                 }
@@ -80,13 +82,13 @@ class listTvViewModel: ViewModel() {
 
     fun getTopRates() {
         viewModelScope.launch {
-            val result = getTopRatesUseCase()
+            val result = getTvTopRatesUseCase()
             Log.i("Test222","tem")
 
             if (result != null) {
                 if(result.total_results != 0){
                     //Se le asigna el valor obtenido de retrofit
-                    topRatesMovies.postValue(result!!)
+                    topRatesTv.postValue(result!!)
 
                 }
             }
@@ -95,13 +97,13 @@ class listTvViewModel: ViewModel() {
 
     fun getPopular() {
         viewModelScope.launch {
-            val result = getPopularUseCase()
+            val result = getTvPopularUseCase()
             Log.i("Test222","tem")
 
             if (result != null) {
                 if(result.total_results != 0){
                     //Se le asigna el valor obtenido de retrofit
-                    popularMovies.postValue(result!!)
+                    popularTv.postValue(result!!)
 
                 }
             }

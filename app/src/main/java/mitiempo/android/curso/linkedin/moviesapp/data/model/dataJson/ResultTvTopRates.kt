@@ -1,6 +1,6 @@
 package mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson
 
-data class ResultTv(
+data class ResultTvTopRates(
     val backdrop_path: String,
     val first_air_date: String,
     val genre_ids: List<Int>,

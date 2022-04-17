@@ -1,8 +1,6 @@
 package mitiempo.android.curso.linkedin.moviesapp.data.model
 
-import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Item
-import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Result
-import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.ResultTv
+import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
 
 class MoviesProvider {
     //todo  va a proveer el listado de heroes
@@ -10,6 +8,9 @@ class MoviesProvider {
         var results: List<Item> = emptyList()
         var resultsFilter: List<Result> = emptyList()
         var resultsFilterTv: List<ResultTv> = emptyList()
+        var resultsTopRates: List<ResultTvTopRates> = emptyList()
+        var resultsPopular: List<ResultTvPopular> = emptyList()
+
 
 
 

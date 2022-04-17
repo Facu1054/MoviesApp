@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/listMovies"
+        android:enabled="true"
+        android:icon="@drawable/ic_movie"
+        android:title="@string/option1"/>
+    <item
+        android:id="@+id/listtv"
+        android:enabled="true"
+        android:icon="@drawable/ic_tv"
+        android:title="@string/option2"/>
+</menu>

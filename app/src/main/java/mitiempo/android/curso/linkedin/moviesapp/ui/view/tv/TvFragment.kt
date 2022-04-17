@@ -10,29 +10,24 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.superheroapp.ui.view.adapter.MoviesAdapter
 import mitiempo.android.curso.linkedin.moviesapp.R
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.Item
-import mitiempo.android.curso.linkedin.moviesapp.databinding.FragmentListMoviesBinding
 import java.util.*
 import android.widget.LinearLayout
 
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
+import mitiempo.android.curso.linkedin.moviesapp.databinding.FragmentListTvBinding
 import mitiempo.android.curso.linkedin.moviesapp.ui.view.MainActivity
 import mitiempo.android.curso.linkedin.moviesapp.ui.viewModel.listTvViewModel
 
 
-interface Communicator {
+@AndroidEntryPoint
+class TvListFragment : Fragment(), SearchView.OnQueryTextListener {
 
-    fun passData(idSuper: String)
-    fun invokeFilterPopular()
-    fun invokeFilterRate()
 
-}
-class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
-
-    private var _binding: FragmentListMoviesBinding? = null
+    private var _binding: FragmentListTvBinding? = null
     private val binding get()=_binding!!
     private val listTvViewModel: listTvViewModel by viewModels()
     private var mActivity: MainActivity? = null
@@ -47,7 +42,7 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentListMoviesBinding.inflate(inflater,container,false)
+        _binding = FragmentListTvBinding.inflate(inflater,container,false)
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -100,31 +95,28 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun setupViewModel() {
-        listTvViewModel.movies.observe(this,{
-            initRecyclerView(it.items as MutableList<Item>)
-            listTvViewModel.moviesList = it.items
 
-        })
-        listTvViewModel.moviesListFilter.observe(this,{
+        listTvViewModel.tvListFilter.observe(this,{
             //initRecyclerView(it.items as MutableList<Item>)
-            listTvViewModel.moviesListFilt = it.results
+            listTvViewModel.tvListFilt = it.results
             Log.i("Test2",it.results.toString())
 
 
         })
-        listTvViewModel.topRatesMovies.observe(this,{
+        listTvViewModel.topRatesTv.observe(this,{
             //initRecyclerView(it.items as MutableList<Item>)
-            listTvViewModel.moviesList = it.results as MutableList<Item>
+            listTvViewModel.tvList = it.results as MutableList<Item>
             Log.i("TestTop",it.results.toString())
-            binding.recyclerMovies.adapter=MoviesAdapter(listTvViewModel.moviesList, "")
+            binding.recyclerMovies.adapter=MoviesAdapter(listTvViewModel.tvList, "")
 
 
         })
-        listTvViewModel.popularMovies.observe(this,{
+        listTvViewModel.popularTv.observe(this,{
             //initRecyclerView(it.items as MutableList<Item>)
-            listTvViewModel.moviesList = it.results as MutableList<Item>
+            initRecyclerView(it.results as MutableList<Item>)
+            listTvViewModel.tvList = it.results as MutableList<Item>
             Log.i("TestPopular",it.results.toString())
-            binding.recyclerMovies.adapter=MoviesAdapter(listTvViewModel.moviesList, "")
+            binding.recyclerMovies.adapter=MoviesAdapter(listTvViewModel.tvList, "")
 
 
         })
@@ -143,7 +135,7 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
     private fun searchByName (query: String) {
         listTvViewModel.invokeFilter(query)
-        initCharacter(listTvViewModel.moviesListFilt as MutableList<Item>, query)
+        initCharacter(listTvViewModel.tvListFilt as MutableList<Item>, query)
 
         /*doAsync {
             val call = getRetrofit().create(APIService::class.java).getCharacterByName("$query/images").execute()
@@ -178,12 +170,12 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
         val searchText = newText!!.toLowerCase(Locale.getDefault())
         if(searchText.isNotEmpty() && searchText != ""){
             listTvViewModel.invokeFilter(searchText)
-            binding.recyclerMovies.adapter=MoviesAdapter(listTvViewModel.moviesListFilt, newText)
+            binding.recyclerMovies.adapter=MoviesAdapter(listTvViewModel.tvListFilt, newText)
         }else {
             listTvViewModel.onCreate()
             binding.recyclerMovies.layoutManager = LinearLayoutManager(this.requireContext())
             binding.recyclerMovies.adapter =
-                MoviesAdapter(listTvViewModel.moviesList, "") /*{ selectedHero ->
+                MoviesAdapter(listTvViewModel.tvList, "") /*{ selectedHero ->
                 //onItemSelected(selectedHero)
             }*/
 

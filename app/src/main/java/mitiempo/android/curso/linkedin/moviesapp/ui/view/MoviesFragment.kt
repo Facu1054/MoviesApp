@@ -25,17 +25,11 @@ import java.util.*
 import android.widget.LinearLayout
 
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import dagger.hilt.android.AndroidEntryPoint
 
 
 
-
-interface Communicator {
-
-    fun passData(idSuper: String)
-    fun invokeFilterPopular()
-    fun invokeFilterRate()
-
-}
+@AndroidEntryPoint
 class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private var _binding: FragmentListMoviesBinding? = null
@@ -78,6 +72,7 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
         binding.button.setOnClickListener {
             showBottomSheetDialog()
         }
+
 
 
     }

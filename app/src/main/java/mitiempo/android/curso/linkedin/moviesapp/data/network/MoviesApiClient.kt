@@ -38,12 +38,12 @@ interface MoviesApiClient {
     @GET("/3/tv/popular")
     suspend fun getTVPopular(@Query("api_key") api_key: String = "9b8b57f966770862708e6f03dfd8f71e"
                                 ,@Query("language") language: String = "en-US",
-                                @Query("page") page: String = "1"): Response<MoviesPopular>
+                                @Query("page") page: String = "1"): Response<TvPoupular>
 
     @GET("/3/tv/top_rated")
     suspend fun getTVTopRates(@Query("api_key") api_key: String = "9b8b57f966770862708e6f03dfd8f71e"
                                 ,@Query("language") language: String = "en-US",
-                                @Query("page") page: String = "1"): Response<MoviesTopRate>
+                                @Query("page") page: String = "1"): Response<TvTopRates>
 
     //https://api.themoviedb.org/3/search/tv?api_key=<<api_key>>&language=en-US&page=1&include_adult=false
     @GET("/3/search/tv")

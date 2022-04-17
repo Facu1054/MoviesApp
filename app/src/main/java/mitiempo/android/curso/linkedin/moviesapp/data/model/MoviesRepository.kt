@@ -4,11 +4,14 @@ import android.util.Log
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
 import mitiempo.android.curso.linkedin.moviesapp.data.network.MoviesService
 import mitiempo.android.curso.linkedin.moviesapp.data.network.TvService
+import javax.inject.Inject
 
-class MoviesRepository {
+class MoviesRepository @Inject constructor(
+            private val api : MoviesService,
+            private val apiTv : TvService
+) {
 
-    private val api = MoviesService()
-    private val apiTv = TvService()
+
 
 
 
@@ -58,18 +61,18 @@ class MoviesRepository {
     }
 
 
-    suspend fun getTopRatesTv():MoviesTopRate{
+    suspend fun getTopRatesTv():TvTopRates{
         val response = apiTv.getTvTopRate()
 
-        MoviesProvider.results = response.results
+        MoviesProvider.resultsTopRates = response.results
 
 
         return response
     }
-    suspend fun getPopularTv():MoviesPopular{
+    suspend fun getPopularTv():TvPoupular{
         val response = apiTv.getTvPopular()
 
-        MoviesProvider.results = response.results
+        MoviesProvider.resultsPopular = response.results
 
 
         return response

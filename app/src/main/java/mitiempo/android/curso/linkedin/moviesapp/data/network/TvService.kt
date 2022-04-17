@@ -5,35 +5,36 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mitiempo.android.curso.linkedin.moviesapp.core.RetrofitHelper
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
+import javax.inject.Inject
 
-class TvService {
-    private val retrofit = RetrofitHelper.getRetrofit()
+class TvService @Inject constructor(private val api: MoviesApiClient) {
+
 
 
     suspend fun getTvFilter(filter: String): TvFilter {
         return withContext(Dispatchers.IO) {
             val response = filter?.let {
                 Log.i("Service", filter)
-                retrofit.create(MoviesApiClient::class.java).getTvFilter(
+                api.getTvFilter(
                     query = filter
                 )
             }
             response!!.body() ?: TvFilter()
         }
     }
-    suspend fun getTvTopRate(): MoviesTopRate {
+    suspend fun getTvTopRate(): TvTopRates {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(MoviesApiClient::class.java).getTVTopRates()
+            val response = api.getTVTopRates()
             Log.i("Rwe", response.body().toString())
-            response.body() ?: MoviesTopRate()
+            response.body() ?: TvTopRates()
         }
     }
 
-    suspend fun getTvPopular(): MoviesPopular {
+    suspend fun getTvPopular(): TvPoupular {
         return withContext(Dispatchers.IO) {
-            val response = retrofit.create(MoviesApiClient::class.java).getTVPopular()
+            val response = api.getTVPopular()
             Log.i("Rwe", response.body().toString())
-            response.body() ?: MoviesPopular()
+            response.body() ?: TvPoupular()
         }
     }
 

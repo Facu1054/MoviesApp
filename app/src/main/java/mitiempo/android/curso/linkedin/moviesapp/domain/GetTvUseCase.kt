@@ -2,26 +2,27 @@ package mitiempo.android.curso.linkedin.moviesapp.domain
 
 import mitiempo.android.curso.linkedin.moviesapp.data.model.MoviesRepository
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
+import javax.inject.Inject
 
-class GetTvFilterUseCases(){
-    private val repository = MoviesRepository()
+class GetTvFilterUseCases @Inject constructor(private val repository : MoviesRepository){
+
 
     suspend operator fun invoke(filter: String): TvFilter? = repository.geTvFilter(filter)
 }
-class GetTopRatesTvUseCase {
+class GetTopRatesTvUseCase @Inject constructor(private val repository : MoviesRepository){
 
-    private val repository = MoviesRepository()
 
-    suspend operator fun invoke():MoviesTopRate? = repository.getTopRatesMovies()
+
+    suspend operator fun invoke():TvTopRates? = repository.getTopRatesTv()
 
 
 }
 
-class GetPopularTvUseCase {
+class GetPopularTvUseCase @Inject constructor(private val repository : MoviesRepository){
 
-    private val repository = MoviesRepository()
 
-    suspend operator fun invoke():MoviesPopular? = repository.getPopularMovies()
+
+    suspend operator fun invoke():TvPoupular? = repository.getPopularTv()
 
 
 }
