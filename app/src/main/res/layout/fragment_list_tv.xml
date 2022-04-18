@@ -38,8 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/button"
-                android:backgroundTint="@color/purple_500"
-                android:fontFamily="serif"
+                android:backgroundTint="@color/grey_60"
                 android:text="Ordenar"
                 android:textColor="#FFFFFF"
                 android:textSize="18sp"
@@ -48,6 +47,20 @@
                 tools:layout_editor_absoluteY="28dp"
                 />
 
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            >
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="?android:attr/progressBarStyleLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:max="3"
+                android:progress="100" />
         </LinearLayout>
 
 
@@ -71,6 +84,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:hideOnScroll="true" />-->
+
+
 
 
 

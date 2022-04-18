@@ -96,7 +96,11 @@ class TvListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun setupViewModel() {
-
+        listTvViewModel.statusFilter.observe(this,{
+            if (it == true){
+                Toast.makeText(requireContext(),"Se necesita Internet para esta operacion",Toast.LENGTH_SHORT).show()
+            }
+        })
         listTvViewModel.tvListFilter.observe(this,{
             //initRecyclerView(it.items as MutableList<Item>)
             listTvViewModel.tvListFilt = it.results
@@ -114,6 +118,8 @@ class TvListFragment : Fragment(), SearchView.OnQueryTextListener {
         })
         listTvViewModel.popularTv.observe(this,{
             //initRecyclerView(it.items as MutableList<Item>)
+            binding.progressBar.visibility = View.GONE
+
             initRecyclerView(it )
             listTvViewModel.tvList = it as MutableList<List<Tv>>
             Log.i("TestPopular",it.toString())

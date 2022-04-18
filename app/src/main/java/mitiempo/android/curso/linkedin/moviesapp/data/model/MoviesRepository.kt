@@ -23,10 +23,6 @@ class MoviesRepository @Inject constructor(
 
     suspend fun getMoviesFromApi():List<Movies>{
         val response: MoviesJson = api.getMovies()
-
-
-        //moviesProvider.results = response.items
-
         return response.items.map { it.toDomain() }
     }
     suspend fun getMoviesFromDatabase():List<Movies>{
@@ -54,21 +50,9 @@ class MoviesRepository @Inject constructor(
         return response
     }
 
-    /*suspend fun getMoviesTop():MoviesTopRate{
-        val response = api.getMoviesTopRate()
-
-        moviesProvider.results = response.results
-
-
-        return response
-    }*/
-
 /////////////////////////
 suspend fun getMoviesTopFromApi():List<Movies>{
     val response: MoviesTopRate = api.getMoviesTopRate()
-
-
-    //moviesProvider.results = response.items
 
     return response.results.map { it.toDomain() }
 }
@@ -84,23 +68,13 @@ suspend fun getMoviesTopFromApi():List<Movies>{
     suspend fun clearTopMovies(){
         moviesDao.deleteAllTopMovies()
     }
-    /*suspend fun getTopRatesMovies():MoviesTopRate{
-        val response = api.getMoviesTopRate()
 
-        moviesProvider.results = response.results
-
-
-        return response
-    }*/
 
 ///////////////////////////
 
 
 suspend fun getMoviesPopularFromApi():List<Movies>{
     val response: MoviesPopular = api.getMoviesPopular()
-
-
-    //moviesProvider.results = response.items
 
     return response.results.map { it.toDomain() }
 }
@@ -117,15 +91,6 @@ suspend fun getMoviesPopularFromApi():List<Movies>{
         moviesDao.deleteAllPopularMovies()
     }
 
-    /*suspend fun getPopularMovies():MoviesPopular{
-        val response = api.getMoviesPopular()
-
-        moviesProvider.results = response.results
-
-
-        return response
-    }*/
-
     suspend fun geTvFilter(filter: String): TvFilter {
         val response = apiTv.getTvFilter(filter)
         Log.i("Repository",filter)
@@ -135,23 +100,9 @@ suspend fun getMoviesPopularFromApi():List<Movies>{
         return response
     }
 
-/*
-    suspend fun getTopRatesTv():TvTopRates{
-        val response = apiTv.getTvTopRate()
-
-        moviesProvider.resultsTopRates = response.results
-
-
-        return response
-    }*/
-
-
 
     suspend fun getTopRatesTvFromApi():List<Tv>{
         val response: TvTopRates = apiTv.getTvTopRate()
-
-
-        //moviesProvider.results = response.items
 
         return response.results.map { it.toDomain() }
     }
@@ -168,20 +119,9 @@ suspend fun getMoviesPopularFromApi():List<Movies>{
         moviesDao.deleteAllPopularMovies()
     }
     //////////
-    /*suspend fun getPopularTv():TvPoupular{
-        val response = apiTv.getTvPopular()
-
-        moviesProvider.resultsPopular = response.results
-
-
-        return response
-    }*/
 
     suspend fun getPopularTvFromApi():List<Tv>{
         val response: TvPoupular = apiTv.getTvPopular()
-
-
-        //moviesProvider.results = response.items
 
         return response.results.map { it.toDomain() }
     }

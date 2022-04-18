@@ -79,42 +79,6 @@ class MoviesViewHolder(view: View): RecyclerView.ViewHolder(view) {
         }
 
     }
-    fun renderTvPopular(tvModel: ResultTvPopular){
-        with(binding) {
-
-            tvNameMovie.text = tvModel.name
-            tvDescription.text = tvModel.overview
-            if(tvModel.poster_path != null) {
-                Picasso.get()
-                    .load("https://image.tmdb.org/t/p/w500/" + tvModel.poster_path)
-                    .into(imgMovie)
-                Log.i("test",tvModel.poster_path)
-            }
-            itemView.setOnClickListener {
-                //onclickListener(superHeroModel)
-
-            }
-        }
-
-    }
-    fun renderTvTopRates(tvModel: ResultTvTopRates){
-        with(binding) {
-
-            tvNameMovie.text = tvModel.name
-            tvDescription.text = tvModel.overview
-            if(tvModel.poster_path != null) {
-                Picasso.get()
-                    .load("https://image.tmdb.org/t/p/w500/" + tvModel.poster_path)
-                    .into(imgMovie)
-                Log.i("test",tvModel.poster_path)
-            }
-            itemView.setOnClickListener {
-                //onclickListener(superHeroModel)
-
-            }
-        }
-
-    }
     fun renderFilterTv(tvModel: ResultTv){
         with(binding) {
 

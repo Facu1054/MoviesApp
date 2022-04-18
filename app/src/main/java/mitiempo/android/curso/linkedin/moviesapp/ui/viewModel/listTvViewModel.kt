@@ -1,10 +1,13 @@
 package mitiempo.android.curso.linkedin.moviesapp.ui.viewModel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
 import mitiempo.android.curso.linkedin.moviesapp.domain.*
@@ -20,6 +23,8 @@ class listTvViewModel @Inject constructor(
 ): ViewModel() {
     val popularTv = MutableLiveData<List<Tv>>()
     val topRatesTv = MutableLiveData<List<Tv>>()
+    val statusFilter = MutableLiveData<Boolean>()
+
     //val popularMovies = MutableLiveData<TvPoupular>()
 
 
@@ -60,16 +65,22 @@ class listTvViewModel @Inject constructor(
         Log.i("Test2w",query)
         viewModelScope.launch {
 
-            val result = getTvUseCaseFilter(query)
+            try {
 
-            if (result != null) {
-                if(result.total_results != 0){
+                val result = getTvUseCaseFilter(query)
 
-                    //Se le asigna el valor obtenido de retrofit
-                    tvListFilter.postValue(result!!)
-                    Log.i("Test2w",result.total_results.toString())
+                if (result != null) {
+                    if (result.total_results != 0) {
 
+                        //Se le asigna el valor obtenido de retrofit
+                        tvListFilter.postValue(result!!)
+                        Log.i("Test2w", result.total_results.toString())
+                        statusFilter.postValue(false)
+                    }
                 }
+            }catch (e: Exception){
+                Log.i("Error","Se necesita Internet para esta operacion")
+                statusFilter.postValue(true)
             }
         }
     }

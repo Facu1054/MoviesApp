@@ -62,6 +62,7 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
         mActivity?.supportActionBar?.title = "Test"
         setHasOptionsMenu(true)
 
+
         listMoviesViewModel.onCreate()
         setupViewModel()
         binding.searchBreed.setOnQueryTextListener(this)
@@ -103,9 +104,16 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
     }
 
     private fun setupViewModel() {
+
+        listMoviesViewModel.statusFilter.observe(this,{
+            if (it == true){
+                Toast.makeText(requireContext(),"Se necesita Internet para esta operacion",Toast.LENGTH_SHORT).show()
+            }
+        })
         listMoviesViewModel.movies.observe(this,{
             initRecyclerView(it as MutableList<Item>)
             listMoviesViewModel.moviesList = it as MutableList<List<Movies>>
+            binding.progressBar.visibility = View.GONE
 
         })
         listMoviesViewModel.moviesListFilter.observe(this,{
@@ -166,6 +174,12 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
         return true
     }
     override fun onQueryTextSubmit(query: String): Boolean {
+        val searchText = query!!.toLowerCase(Locale.getDefault())
+        if(searchText.isNotEmpty() && searchText != "") {
+            listMoviesViewModel.invokeFilter(searchText)
+            binding.recyclerMovies.adapter =
+                MoviesAdapter(listMoviesViewModel.moviesListFilt, query)
+        }
         listMoviesViewModel.tempSearch.clear()
         binding.root.hideKeyboard()
         return true

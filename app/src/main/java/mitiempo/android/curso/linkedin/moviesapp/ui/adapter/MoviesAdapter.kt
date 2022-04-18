@@ -21,14 +21,7 @@ class MoviesAdapter(private var moviesList:List<Any>,private var filter: String)
         val item = moviesList[position]
         if(item is Result) {
             holder.render2(item as Result)
-            Log.i("result2",item.toString())
-
-        }else if (item is ResultTvPopular){
-            holder.renderTvPopular(item as ResultTvPopular)
-            Log.i("result2",item.toString())
-        }else if (item is ResultTvTopRates){
-            holder.renderTvTopRates(item as ResultTvTopRates)
-            Log.i("result2",item.toString())
+            Log.i("result2", item.toString())
         }else if (item is ResultTv){
             holder.renderFilterTv(item as ResultTv)
             Log.i("result2",item.toString())

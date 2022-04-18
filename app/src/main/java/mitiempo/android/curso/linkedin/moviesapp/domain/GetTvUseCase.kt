@@ -39,14 +39,19 @@ class GetPopularTvUseCase @Inject constructor(private val repository : MoviesRep
 
     //suspend operator fun invoke(): MoviesTopRate? = repository.getMoviesTop()
     //suspend operator fun invoke():MoviesJson? = repository.getMovies()
+
     suspend operator fun invoke():List<Tv> {
-        val movies = repository.getPopularTvFromApi()
-        return if(movies.isNotEmpty()){
+        var movies: List<Tv>
+
+        return try {
+            movies = repository.getPopularTvFromApi()
             repository.clearPopularTv()
             repository.insertPopularTv(tv = movies.map { it.toDomainPopular() })
             movies
-        }else{
-            repository.getPopularTvFromDatabase()
+
+        }catch (e: Exception){
+            movies = repository.getPopularTvFromDatabase()
+            movies
         }
 
     }
@@ -61,13 +66,17 @@ class GetTopRatesTvUseCase @Inject constructor(private val repository : MoviesRe
     //suspend operator fun invoke(): MoviesPopular? = repository.getPopularMovies()
 
     suspend operator fun invoke():List<Tv> {
-        val movies = repository.getTopRatesTvFromApi()
-        return if(movies.isNotEmpty()){
+        var movies: List<Tv>
+
+        return try {
+            movies = repository.getTopRatesTvFromApi()
             repository.clearTopTv()
             repository.inserttopTv(tv = movies.map { it.toDatabaseTop() })
             movies
-        }else{
-            repository.getTopRatesTvFromDatabase()
+
+        }catch (e: Exception){
+            movies = repository.getTopRatesTvFromDatabase()
+            movies
         }
 
     }

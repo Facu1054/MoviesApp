@@ -1,6 +1,8 @@
 package mitiempo.android.curso.linkedin.moviesapp.ui.viewModel
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -24,6 +26,8 @@ class listMoviesViewModel @Inject constructor(
     val movies = MutableLiveData<List<Movies>>()
     val topRatesMovies = MutableLiveData<List<Movies>>()
     val popularMovies = MutableLiveData<List<Movies>>()
+    val statusFilter = MutableLiveData<Boolean>()
+
 
 
     //var moviesListPop:MutableList<List<Movies>> = mutableListOf()
@@ -72,17 +76,25 @@ class listMoviesViewModel @Inject constructor(
     fun invokeFilter (query : String){
         Log.i("Test2w",query)
         viewModelScope.launch {
+            try {
 
-            val result = getFilterMoviesUseCaseFilter(query)
 
-            if (result != null) {
-                if(result.total_results != 0){
+                val result = getFilterMoviesUseCaseFilter(query)
 
-                    //Se le asigna el valor obtenido de retrofit
-                    moviesListFilter.postValue(result!!)
-                    Log.i("Test2w",result.total_results.toString())
+                if (result != null) {
+                    if (result.total_results != 0) {
 
+                        //Se le asigna el valor obtenido de retrofit
+                        moviesListFilter.postValue(result!!)
+                        Log.i("Test2w", result.total_results.toString())
+                        statusFilter.postValue(false)
+
+                    }
                 }
+            }catch (e: Exception){
+                Log.i("Error","Se necesita Internet para esta operacion")
+                statusFilter.postValue(true)
+
             }
         }
     }
