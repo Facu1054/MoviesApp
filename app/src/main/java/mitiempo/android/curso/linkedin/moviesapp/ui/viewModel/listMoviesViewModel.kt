@@ -11,6 +11,7 @@ import mitiempo.android.curso.linkedin.moviesapp.domain.GetMoviesFilterUseCases
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetMoviesUseCase
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetPopularMoviesUseCase
 import mitiempo.android.curso.linkedin.moviesapp.domain.GetTopRatesMoviesUseCase
+import mitiempo.android.curso.linkedin.moviesapp.domain.model.Movies
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,12 +21,14 @@ class listMoviesViewModel @Inject constructor(
     private val getPopularUseCase : GetPopularMoviesUseCase,
     private val getFilterMoviesUseCaseFilter : GetMoviesFilterUseCases
 ): ViewModel() {
-    val movies = MutableLiveData<MoviesJson>()
-    val topRatesMovies = MutableLiveData<MoviesTopRate>()
-    val popularMovies = MutableLiveData<MoviesPopular>()
+    val movies = MutableLiveData<List<Movies>>()
+    val topRatesMovies = MutableLiveData<List<Movies>>()
+    val popularMovies = MutableLiveData<List<Movies>>()
 
 
-    var moviesList:MutableList<Item> = mutableListOf()
+    //var moviesListPop:MutableList<List<Movies>> = mutableListOf()
+
+    var moviesList:MutableList<List<Movies>> = mutableListOf()
     var moviesListFilt:List<Result> = mutableListOf()
     var tempSearch = mutableSetOf<String>()
 
@@ -52,11 +55,10 @@ class listMoviesViewModel @Inject constructor(
             Log.i("Test222","tem")
 
             if (result != null) {
-                if(result.item_count != 0){
-                    //Se le asigna el valor obtenido de retrofit
-                    movies.postValue(result!!)
+                //Se le asigna el valor obtenido de retrofit
+                movies.postValue(result!!)
 
-                }
+
             }
         }
     }
@@ -92,11 +94,10 @@ class listMoviesViewModel @Inject constructor(
             Log.i("Test222","tem")
 
             if (result != null) {
-                if(result.total_results != 0){
-                    //Se le asigna el valor obtenido de retrofit
-                    topRatesMovies.postValue(result!!)
+                //Se le asigna el valor obtenido de retrofit
+                topRatesMovies.postValue(result!!)
 
-                }
+
             }
         }
     }
@@ -107,11 +108,9 @@ class listMoviesViewModel @Inject constructor(
             Log.i("Test222","tem")
 
             if (result != null) {
-                if(result.total_results != 0){
-                    //Se le asigna el valor obtenido de retrofit
-                    popularMovies.postValue(result!!)
+                //Se le asigna el valor obtenido de retrofit
+                popularMovies.postValue(result!!)
 
-                }
             }
         }
     }

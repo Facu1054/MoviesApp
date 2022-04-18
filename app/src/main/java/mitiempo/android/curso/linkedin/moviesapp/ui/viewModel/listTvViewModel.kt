@@ -8,6 +8,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
 import mitiempo.android.curso.linkedin.moviesapp.domain.*
+import mitiempo.android.curso.linkedin.moviesapp.domain.model.Movies
+import mitiempo.android.curso.linkedin.moviesapp.domain.model.Tv
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,12 +18,12 @@ class listTvViewModel @Inject constructor(
     private val getTvTopRatesUseCase : GetTopRatesTvUseCase,
     private val getTvPopularUseCase : GetPopularTvUseCase
 ): ViewModel() {
-    val popularTv = MutableLiveData<TvPoupular>()
-    val topRatesTv = MutableLiveData<TvTopRates>()
+    val popularTv = MutableLiveData<List<Tv>>()
+    val topRatesTv = MutableLiveData<List<Tv>>()
     //val popularMovies = MutableLiveData<TvPoupular>()
 
 
-    var tvList:MutableList<Item> = mutableListOf()
+    var tvList:MutableList<List<Tv>> = mutableListOf()
     var tvListFilt:List<ResultTv> = mutableListOf()
     var tempSearch = mutableSetOf<String>()
 
@@ -46,21 +48,14 @@ class listTvViewModel @Inject constructor(
             Log.i("Test222","tem")
 
             if (result != null) {
-                if(result.total_results != 0){
                     //Se le asigna el valor obtenido de retrofit
                     popularTv.postValue(result!!)
 
-                }
+
             }
         }
     }
-    /*fun image (url: String){
-        viewModelScope.launch {
-            val image = getQuotesUseCase.invokeImage(url)
-            imageStr = image ?: ""
-        }
-    }*/
-    //invokeFilter
+
     fun invokeFilter (query : String){
         Log.i("Test2w",query)
         viewModelScope.launch {
@@ -86,11 +81,10 @@ class listTvViewModel @Inject constructor(
             Log.i("Test222","tem")
 
             if (result != null) {
-                if(result.total_results != 0){
                     //Se le asigna el valor obtenido de retrofit
                     topRatesTv.postValue(result!!)
 
-                }
+
             }
         }
     }
@@ -101,11 +95,10 @@ class listTvViewModel @Inject constructor(
             Log.i("Test222","tem")
 
             if (result != null) {
-                if(result.total_results != 0){
                     //Se le asigna el valor obtenido de retrofit
                     popularTv.postValue(result!!)
 
-                }
+
             }
         }
     }

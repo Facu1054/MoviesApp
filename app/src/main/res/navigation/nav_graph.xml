@@ -32,6 +32,8 @@
         <action
             android:id="@+id/action_listMovies_to_listtv"
             app:destination="@id/listtv" />
+
+
     </fragment>
     <fragment
         android:id="@+id/listtv"
@@ -44,5 +46,7 @@
         <action
             android:id="@+id/action_listtv_to_listMovies"
             app:destination="@id/listMovies" />
+
     </fragment>
+
 </navigation>

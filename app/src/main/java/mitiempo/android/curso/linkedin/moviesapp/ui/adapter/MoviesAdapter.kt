@@ -6,13 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import mitiempo.android.curso.linkedin.moviesapp.R
 import mitiempo.android.curso.linkedin.moviesapp.data.model.dataJson.*
+import mitiempo.android.curso.linkedin.moviesapp.domain.model.Movies
+import mitiempo.android.curso.linkedin.moviesapp.domain.model.Tv
 
 //Convierte un listado en un RecyclerView
 //, private val onClickListener:(Result) -> Unit
 class MoviesAdapter(private var moviesList:List<Any>,private var filter: String) : RecyclerView.Adapter<MoviesViewHolder>(){
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return MoviesViewHolder(layoutInflater.inflate(R.layout.item_superhero, parent, false))
+        return MoviesViewHolder(layoutInflater.inflate(R.layout.item_list, parent, false))
     }
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
@@ -29,6 +31,14 @@ class MoviesAdapter(private var moviesList:List<Any>,private var filter: String)
             Log.i("result2",item.toString())
         }else if (item is ResultTv){
             holder.renderFilterTv(item as ResultTv)
+            Log.i("result2",item.toString())
+        }
+        else if (item is Movies) {
+            holder.renderMovies(item)
+            Log.i("result2",item.toString())
+        }
+        else if (item is Tv) {
+            holder.renderTv(item)
             Log.i("result2",item.toString())
         }
         else{

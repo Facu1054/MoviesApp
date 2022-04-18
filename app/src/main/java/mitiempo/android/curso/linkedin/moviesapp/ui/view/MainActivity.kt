@@ -17,7 +17,6 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import mitiempo.android.curso.linkedin.moviesapp.R
 import mitiempo.android.curso.linkedin.moviesapp.databinding.ActivityMainBinding
-import mitiempo.android.curso.linkedin.moviesapp.databinding.ActivityMoviesBinding
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

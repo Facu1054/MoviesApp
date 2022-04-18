@@ -26,7 +26,7 @@ import android.widget.LinearLayout
 
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
-
+import mitiempo.android.curso.linkedin.moviesapp.domain.model.Movies
 
 
 @AndroidEntryPoint
@@ -104,8 +104,8 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private fun setupViewModel() {
         listMoviesViewModel.movies.observe(this,{
-            initRecyclerView(it.items as MutableList<Item>)
-            listMoviesViewModel.moviesList = it.items
+            initRecyclerView(it as MutableList<Item>)
+            listMoviesViewModel.moviesList = it as MutableList<List<Movies>>
 
         })
         listMoviesViewModel.moviesListFilter.observe(this,{
@@ -117,16 +117,16 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
         })
         listMoviesViewModel.topRatesMovies.observe(this,{
             //initRecyclerView(it.items as MutableList<Item>)
-            listMoviesViewModel.moviesList = it.results as MutableList<Item>
-            Log.i("TestTop",it.results.toString())
+            listMoviesViewModel.moviesList = it as MutableList<List<Movies>>
+            Log.i("TestTop",it.toString())
             binding.recyclerMovies.adapter=MoviesAdapter(listMoviesViewModel.moviesList, "")
 
 
         })
         listMoviesViewModel.popularMovies.observe(this,{
             //initRecyclerView(it.items as MutableList<Item>)
-            listMoviesViewModel.moviesList = it.results as MutableList<Item>
-            Log.i("TestPopular",it.results.toString())
+            listMoviesViewModel.moviesList = it as MutableList<List<Movies>>
+            Log.i("TestPopular",it.toString())
             binding.recyclerMovies.adapter=MoviesAdapter(listMoviesViewModel.moviesList, "")
 
 
@@ -144,37 +144,8 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
 
 
     }
-    private fun searchByName (query: String) {
-        listMoviesViewModel.invokeFilter(query)
-        initCharacter(listMoviesViewModel.moviesListFilt as MutableList<Item>, query)
-
-        /*doAsync {
-            val call = getRetrofit().create(APIService::class.java).getCharacterByName("$query/images").execute()
-            val puppies = call.body() as DogsResponse
-            uiThread {
-                if(puppies.status == "success") {
-                    initCharacter(listMoviesViewModel.moviesList as MutableList<Item>, query)
-                }else{
-                    //showErrorDialog()
-                }
-                //hideKeyboard()
-            }
-        }*/
 
 
-    }
-
-
-    private fun initCharacter(movies: MutableList<Item>, query: String) {
-
-
-        binding.recyclerMovies.layoutManager = LinearLayoutManager(this.requireContext())
-        Log.i("Test",query)
-        binding.recyclerMovies.adapter =
-            MoviesAdapter(movies, query)
-        //binding.recyclerSuperHeroes.adapter = MoviesAdapter(movies)
-
-    }
 
     override fun onQueryTextChange(newText: String?): Boolean {
         //listMoviesViewModel.moviesList.clear()
@@ -191,7 +162,6 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
             }*/
 
         }
-        //searchByName(query.toLowerCase())
         binding.recyclerMovies.adapter?.notifyDataSetChanged()
         return true
     }
@@ -220,8 +190,6 @@ class MoviesListFragment : Fragment(), SearchView.OnQueryTextListener {
             }
             else -> super.onOptionsItemSelected(item)
         }
-
-        // return super.onOptionsItemSelected(item)
     }
 
     fun View.hideKeyboard() {
